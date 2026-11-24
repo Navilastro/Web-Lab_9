@@ -181,3 +181,19 @@ app.get("/api/stats", async (req, res) => {
     byGenre
   });
 });
+
+app.get("/api/crash", async (req, res) => {
+  throw new Error("Simulated async failure");
+});
+
+app.use("/api", (req, res) => {
+  return res.status(404).json({ error: "Not found" });
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ error: "Malformed JSON in request body" });
+  }
+  console.error(err);
+  return res.status(500).json({ error: "Something went wrong" });
+});
