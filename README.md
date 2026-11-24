@@ -1,6 +1,6 @@
 # Reading List App
 
-This project is my first full-stack web application for the Web Programming lab. The backend uses Node.js and Express 5 to store books in memory, and the frontend uses React with Vite to talk to the API.
+The backend uses Node.js and Express 5 to store books in memory, and the frontend uses React with Vite to talk to the API.
 
 ## How to Install and Run
 
