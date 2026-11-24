@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { getAllBooks, getBookById, addBook, replaceBook, deleteBook } from "./booksStore.js";
 import { parsePositiveId, validateCompleteBook, validatePatchBody } from "./validate.js";
+import { ALLOWED_GENRES, parsePositiveId, validateCompleteBook, validatePatchBody } from "./validate.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
