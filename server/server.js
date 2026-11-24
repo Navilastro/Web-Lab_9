@@ -5,9 +5,21 @@ import { ALLOWED_GENRES, parsePositiveId, validateCompleteBook, validatePatchBod
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const allowedOrigins = new Set([
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  process.env.CLIENT_ORIGIN
+].filter(Boolean));
 
-app.use(cors({ origin: CLIENT_ORIGIN }));
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Origin not allowed"));
+    }
+  }
+}));
 app.use(express.json());
 
 function hasDuplicate(books, title, author, excludeId = null) {
